@@ -17,4 +17,8 @@ helm init --service-account tiller --upgrade --output yaml | sed 's@apiVersion: 
 kubectl -n kube-system patch deploy/tiller-deploy -p '{"spec": {"template": {"spec": {"serviceAccountName": "tiller"}}}}'
 kubectl -n kube-system patch deployment tiller-deploy -p '{"spec": {"template": {"spec": {"automountServiceAccountToken": true}}}}'
 helm repo update
+
+TILER_POD=$(kubectl -n kube-system get po| grep 'tiller-deploy'| sed 's/|/ /' | awk '{print $1}')
+while [[ $(kubectl get pods -n kube-system $TILER_POD -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod" && sleep 1; done
+
 helm install --namespace openebs stable/openebs
