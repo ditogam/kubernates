@@ -23,4 +23,6 @@ while [[ $(kubectl get pods -n kube-system $TILER_POD -o 'jsonpath={..status.con
 
 helm install --namespace openebs stable/openebs
 
-kubectl patch storageclass openebs-jiva-default -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+  kubectl patch storageclass openebs-jiva-default  -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+  kubectl patch storageclass openebs-device -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
