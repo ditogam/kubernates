@@ -22,3 +22,5 @@ TILER_POD=$(kubectl -n kube-system get po| grep 'tiller-deploy'| sed 's/|/ /' | 
 while [[ $(kubectl get pods -n kube-system $TILER_POD -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod" && sleep 1; done
 
 helm install --namespace openebs stable/openebs
+
+kubectl patch storageclass openebs-jiva-default -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
