@@ -1,5 +1,7 @@
 #!/bin/bash
 
+##https://programming.vip/docs/deploying-kubernetes-through-kubeadm.html
+
 sudo apt-get install open-iscsi -y
 
 
