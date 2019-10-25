@@ -4,6 +4,8 @@
 
 sudo apt-get install open-iscsi -y
 
+for i in *; do sed -i 's/'extensions/v1beta1'/apps\/v1/g' "$i"; done
+
 
 sudo systemctl enable iscsid && sudo systemctl start iscsid
 helm del $(helm ls --all --short) --purge
