@@ -28,5 +28,6 @@ echo $TILER_POD
 while [[ $(kubectl get pods -n kube-system $TILER_POD -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod" && sleep 1; done
 
 helm install --namespace openebs stable/openebs
+kubectl get pods --all-namespaces -o wide -w
 
 kubectl patch storageclass openebs-hostpath  -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
