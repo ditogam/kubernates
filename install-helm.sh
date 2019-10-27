@@ -24,6 +24,7 @@ kubectl -n kube-system patch deployment tiller-deploy -p '{"spec": {"template": 
 helm repo update
 
 TILER_POD=$(kubectl -n kube-system get po| grep 'tiller-deploy'| sed 's/|/ /' | awk '{print $1}')
+echo $TILER_POD
 while [[ $(kubectl get pods -n kube-system $TILER_POD -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod" && sleep 1; done
 
 helm install --namespace openebs stable/openebs
