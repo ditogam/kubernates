@@ -33,3 +33,4 @@ kubectl get pods --all-namespaces -o wide -w
 #wait until all running
 kubectl get storageclass
 kubectl patch storageclass openebs-hostpath  -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+https://hub.docker.com/_/microsoft-mmlspark-release?tab=description
